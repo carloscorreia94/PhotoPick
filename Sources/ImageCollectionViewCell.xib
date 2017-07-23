@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ImageCollectionViewCell" customModule="NossaFreguesia" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="imageCell" id="udg-t2-sm0" customClass="ImageCollectionViewCell" customModule="NossaFreguesia" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NwQ-EK-5Yk">
+                        <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+                    </imageView>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="NwQ-EK-5Yk" firstAttribute="top" secondItem="udg-t2-sm0" secondAttribute="top" id="JY7-BX-vCz"/>
+                <constraint firstAttribute="trailing" secondItem="NwQ-EK-5Yk" secondAttribute="trailing" id="rxZ-L5-EW6"/>
+                <constraint firstItem="NwQ-EK-5Yk" firstAttribute="leading" secondItem="udg-t2-sm0" secondAttribute="leading" id="vgK-85-1W2"/>
+                <constraint firstAttribute="bottom" secondItem="NwQ-EK-5Yk" secondAttribute="bottom" id="wQd-F6-WAR"/>
+            </constraints>
+            <size key="customSize" width="64" height="64"/>
+            <connections>
+                <outlet property="imageView" destination="NwQ-EK-5Yk" id="MIe-1L-pK1"/>
+            </connections>
+            <point key="canvasLocation" x="753" y="372"/>
+        </collectionViewCell>
+    </objects>
+</document>

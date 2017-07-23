@@ -1,0 +1,14 @@
+source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
+inhibit_all_warnings!
+
+
+target 'PhotoPickExample' do
+  pod 'PhotoPick', :path => '../'
+end
+
+#target 'PhotoPickTests' do
+#  pod 'PhotoPick', :path => '../'
+
+#  pod 'FBSnapshotTestCase'
+#end
