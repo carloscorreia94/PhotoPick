@@ -56,7 +56,7 @@ class PickLibraryView : UIView, PHPhotoLibraryChangeObserver, UICollectionViewDa
         self.backgroundColor = UIColor.darkGray
         
         // Init Images Collection View
-        let cellNib = UINib(nibName: "ImageCollectionViewCell", bundle: nil)
+        let cellNib = UINib(nibName: "ImageCollectionViewCell", bundle: Bundle(for: self.classForCoder))
         collectionView.register(cellNib, forCellWithReuseIdentifier: "imageCell")
         collectionView.collectionViewLayout = collectionViewLayout
         collectionView.backgroundColor = UIColor.darkGray
