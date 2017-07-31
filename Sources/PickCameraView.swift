@@ -331,22 +331,22 @@ class PickCameraView : UIView, UIGestureRecognizerDelegate {
                 self.session?.stopRunning()
                 
                 let data = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer)
-                
                 if let image = UIImage(data: data!) {
-                    
+                   
                     // Image size
-                    var iw: CGFloat
-                    var ih: CGFloat
+                    var iw: CGFloat = image.size.width
+                    var ih: CGFloat = image.size.height
                     
                     switch (orientation) {
                     case .landscapeLeft, .landscapeRight:
-                        // Swap width and height if orientation is landscape
-                        iw = image.size.height
-                        ih = image.size.width
+                            // Swap width and height if orientation is landscape
+                            iw = image.size.height
+                            ih = image.size.width
+                        
                     default:
-                        iw = image.size.width
-                        ih = image.size.height
+                        break
                     }
+                    
                     
                     // Frame size
                     let sw = self.cameraView.frame.width
@@ -356,11 +356,16 @@ class PickCameraView : UIView, UIGestureRecognizerDelegate {
                     
                     let imageRef = image.cgImage?.cropping(to: CGRect(x: rcy-iw*0.5, y: 0 , width: iw, height: iw))
                     
-                    
+                   
                     
                     DispatchQueue.main.async(execute: { () -> Void in
                         
-                        let resizedImage = UIImage(cgImage: imageRef!, scale: sw/iw, orientation: image.imageOrientation)
+                        var resizedImage = UIImage(cgImage: imageRef!, scale: sw/iw, orientation: image.imageOrientation)
+                        
+                        //Temporary. Change orientation here, as front camera input changes it (not sure why)
+                        if self.videoInput?.device.position == AVCaptureDevicePosition.front {
+                            resizedImage = UIImage(cgImage: resizedImage.cgImage!, scale: 1.0, orientation: .leftMirrored)
+                        }
                         self._isReadyToSend = true
                         self.stopCamera()
                         self.currentImage = resizedImage

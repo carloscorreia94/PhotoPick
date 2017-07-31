@@ -35,7 +35,6 @@ class PickLibraryView : UIView, PHPhotoLibraryChangeObserver, UICollectionViewDa
     var imageManager = PHCachingImageManager()
     var assets: PHFetchResult<PHAsset>?
     
-    var cellStatus: NSMutableDictionary = NSMutableDictionary()
     
     var optionsLowRes: PHImageRequestOptions!
     var optionsHighRes: PHImageRequestOptions!
@@ -97,9 +96,8 @@ class PickLibraryView : UIView, PHPhotoLibraryChangeObserver, UICollectionViewDa
             
         }
         
-        updateLibrary()
-        
         PHPhotoLibrary.shared().register(self)
+
 
     }
     
@@ -117,6 +115,8 @@ class PickLibraryView : UIView, PHPhotoLibraryChangeObserver, UICollectionViewDa
                 DispatchQueue.main.async {
                     
                     self.delegate?.albumViewCameraRollAuthorized()
+                    self.updateLibrary()
+
                 }
                 
             case .restricted, .denied:
@@ -135,24 +135,13 @@ class PickLibraryView : UIView, PHPhotoLibraryChangeObserver, UICollectionViewDa
 
     
     func updateLibrary() {
+        print("call update library!")
+
         let optionsSort = PHFetchOptions()
         optionsSort.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         assets = PHAsset.fetchAssets(with: .image, options: optionsSort)
         
         
-        let isReady = PHPhotoLibrary.authorizationStatus() == .authorized
-        
-        // Select and show first image
-        if isReady {
-            let indexPathForFirstRow = IndexPath(row: 0, section: 0)
-            collectionView.selectItem(at: indexPathForFirstRow,
-                                      animated: false,
-                                      scrollPosition: UICollectionViewScrollPosition())
-            if assets!.count > 0 && imageView == nil {
-                let photo = assets![(indexPathForFirstRow as NSIndexPath).row] as! PHAsset
-                showImage(photo)
-            }
-        }
         
         // Setup grid view
         gridView = GridView(frame: scrollView.frame)
@@ -160,6 +149,7 @@ class PickLibraryView : UIView, PHPhotoLibraryChangeObserver, UICollectionViewDa
         gridView.isUserInteractionEnabled = false
 
         collectionView.reloadData()
+
     }
     
     /**
@@ -187,6 +177,21 @@ class PickLibraryView : UIView, PHPhotoLibraryChangeObserver, UICollectionViewDa
         let cell: ImageCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell",
                                                                                for: indexPath) as! ImageCollectionViewCell
         
+        let zeroIndexPath = IndexPath(row: 0, section: 0)
+        if zeroIndexPath == indexPath {
+            let isReady = PHPhotoLibrary.authorizationStatus() == .authorized
+
+            if isReady && assets!.count > 0 && imageView == nil {
+                let photo = assets![(zeroIndexPath as NSIndexPath).row] as! PHAsset
+                showImage(photo)
+                
+                cell.isSelected = true
+            }
+        }
+
+        
+        
+        
         let cellWidth = collectionViewLayout.cellWidth
         
         let asset = assets![(indexPath as NSIndexPath).row] as! PHAsset
@@ -198,7 +203,6 @@ class PickLibraryView : UIView, PHPhotoLibraryChangeObserver, UICollectionViewDa
                                     cell.imageView?.image = result
         }
         
-        cell.isSelected = (cellStatus[(indexPath as NSIndexPath).row] as? Bool) ?? false
         
         return cell
     }
@@ -215,7 +219,6 @@ class PickLibraryView : UIView, PHPhotoLibraryChangeObserver, UICollectionViewDa
                                                                                for: indexPath) as! ImageCollectionViewCell
         
         cell.isSelected = true
-        cellStatus[(indexPath as NSIndexPath).row] = true
         
         let photo = assets![(indexPath as NSIndexPath).row] as! PHAsset
         showImage(photo)
@@ -232,7 +235,6 @@ class PickLibraryView : UIView, PHPhotoLibraryChangeObserver, UICollectionViewDa
                                                                                for: indexPath) as! ImageCollectionViewCell
         
         cell.isSelected = false
-        cellStatus[(indexPath as NSIndexPath).row] = false
     }
     
     
