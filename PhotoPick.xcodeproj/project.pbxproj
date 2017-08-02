@@ -19,10 +19,22 @@
 		175321F31F24EC7C0039611D /* Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175321F21F24EC7C0039611D /* Extras.swift */; };
 		175321F71F24ED580039611D /* TitilliumWeb-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 175321F61F24ED580039611D /* TitilliumWeb-SemiBold.ttf */; };
 		52412A971CA6114A0073C4BE /* PhotoPick.h in Headers */ = {isa = PBXBuildFile; fileRef = 52412A961CA6114A0073C4BE /* PhotoPick.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0F1DE061F320B1800CBF749 /* PhotoPickTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F1DE051F320B1800CBF749 /* PhotoPickTests.swift */; };
+		D0F1DE081F320B1800CBF749 /* PhotoPick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52412A931CA6114A0073C4BE /* PhotoPick.framework */; };
 		EDDC0B4A1D0511E7009135DB /* PhotoPickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDC0B481D0511E7009135DB /* PhotoPickViewController.swift */; };
 		EDDC0B4B1D0511E7009135DB /* PhotoPickViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDDC0B491D0511E7009135DB /* PhotoPickViewController.xib */; };
 		EDDC0B5D1D051245009135DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDDC0B5C1D051245009135DB /* Assets.xcassets */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D0F1DE091F320B1800CBF749 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 52412A8A1CA6114A0073C4BE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 52412A921CA6114A0073C4BE;
+			remoteInfo = PhotoPick;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1721B1E01F23A05600C082CB /* PickCameraView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickCameraView.xib; sourceTree = "<group>"; };
@@ -39,6 +51,9 @@
 		52412A931CA6114A0073C4BE /* PhotoPick.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PhotoPick.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		52412A961CA6114A0073C4BE /* PhotoPick.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoPick.h; sourceTree = "<group>"; };
 		52412A981CA6114A0073C4BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0F1DE031F320B1800CBF749 /* PhotoPickTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotoPickTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0F1DE051F320B1800CBF749 /* PhotoPickTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickTests.swift; sourceTree = "<group>"; };
+		D0F1DE071F320B1800CBF749 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EDDC0B481D0511E7009135DB /* PhotoPickViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = PhotoPickViewController.swift; sourceTree = "<group>"; tabWidth = 4; };
 		EDDC0B491D0511E7009135DB /* PhotoPickViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoPickViewController.xib; sourceTree = "<group>"; };
 		EDDC0B5C1D051245009135DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -52,6 +67,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D0F1DE001F320B1800CBF749 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0F1DE081F320B1800CBF749 /* PhotoPick.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -60,6 +83,7 @@
 			children = (
 				52412A9E1CA6114F0073C4BE /* Sources */,
 				52412A951CA6114A0073C4BE /* PhotoPick */,
+				D0F1DE041F320B1800CBF749 /* PhotoPickTests */,
 				52412A941CA6114A0073C4BE /* Products */,
 			);
 			indentWidth = 4;
@@ -70,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				52412A931CA6114A0073C4BE /* PhotoPick.framework */,
+				D0F1DE031F320B1800CBF749 /* PhotoPickTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -104,6 +129,15 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
+		D0F1DE041F320B1800CBF749 /* PhotoPickTests */ = {
+			isa = PBXGroup;
+			children = (
+				D0F1DE051F320B1800CBF749 /* PhotoPickTests.swift */,
+				D0F1DE071F320B1800CBF749 /* Info.plist */,
+			);
+			path = PhotoPickTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -136,18 +170,42 @@
 			productReference = 52412A931CA6114A0073C4BE /* PhotoPick.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		D0F1DE021F320B1800CBF749 /* PhotoPickTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D0F1DE0D1F320B1800CBF749 /* Build configuration list for PBXNativeTarget "PhotoPickTests" */;
+			buildPhases = (
+				D0F1DDFF1F320B1800CBF749 /* Sources */,
+				D0F1DE001F320B1800CBF749 /* Frameworks */,
+				D0F1DE011F320B1800CBF749 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D0F1DE0A1F320B1800CBF749 /* PBXTargetDependency */,
+			);
+			name = PhotoPickTests;
+			productName = PhotoPickTests;
+			productReference = D0F1DE031F320B1800CBF749 /* PhotoPickTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		52412A8A1CA6114A0073C4BE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = carloscorreia94;
 				TargetAttributes = {
 					52412A921CA6114A0073C4BE = {
 						CreatedOnToolsVersion = 7.3;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
+					};
+					D0F1DE021F320B1800CBF749 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = MVE9Q2RM5Z;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -165,6 +223,7 @@
 			projectRoot = "";
 			targets = (
 				52412A921CA6114A0073C4BE /* PhotoPick */,
+				D0F1DE021F320B1800CBF749 /* PhotoPickTests */,
 			);
 		};
 /* End PBXProject section */
@@ -180,6 +239,13 @@
 				EDDC0B4B1D0511E7009135DB /* PhotoPickViewController.xib in Resources */,
 				175321F71F24ED580039611D /* TitilliumWeb-SemiBold.ttf in Resources */,
 				1721B1F61F24D80700C082CB /* ImageCollectionViewCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0F1DE011F320B1800CBF749 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,7 +267,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D0F1DDFF1F320B1800CBF749 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0F1DE061F320B1800CBF749 /* PhotoPickTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D0F1DE0A1F320B1800CBF749 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 52412A921CA6114A0073C4BE /* PhotoPick */;
+			targetProxy = D0F1DE091F320B1800CBF749 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		52412A991CA6114A0073C4BE /* Debug */ = {
@@ -348,6 +430,37 @@
 			};
 			name = Release;
 		};
+		D0F1DE0B1F320B1800CBF749 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				DEVELOPMENT_TEAM = MVE9Q2RM5Z;
+				INFOPLIST_FILE = PhotoPickTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.carlosmouracorreia.PhotoPickTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		D0F1DE0C1F320B1800CBF749 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				DEVELOPMENT_TEAM = MVE9Q2RM5Z;
+				INFOPLIST_FILE = PhotoPickTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.carlosmouracorreia.PhotoPickTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -368,6 +481,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		D0F1DE0D1F320B1800CBF749 /* Build configuration list for PBXNativeTarget "PhotoPickTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0F1DE0B1F320B1800CBF749 /* Debug */,
+				D0F1DE0C1F320B1800CBF749 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
