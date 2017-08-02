@@ -2,9 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/ntwlaptop/Documents/carlos/ios_library/tests/PhotoPick/PhotoPick.xcodeproj">
+      location = "container:PhotoPick.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:/Users/ntwlaptop/Documents/carlos/ios_library/tests/PhotoPick/Example/PhotoPickExample.xcodeproj">
+      location = "container:Example/PhotoPickExample.xcodeproj">
    </FileRef>
 </Workspace>
