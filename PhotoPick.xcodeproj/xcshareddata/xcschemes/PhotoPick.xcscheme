@@ -28,7 +28,36 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D0C936FC1F38BE80005B7B7D"
+               BuildableName = "PhotoPickExampleUITests.xctest"
+               BlueprintName = "PhotoPickExampleUITests"
+               ReferencedContainer = "container:Example/PhotoPickExample.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D0F1DE021F320B1800CBF749"
+               BuildableName = "PhotoPickTests.xctest"
+               BlueprintName = "PhotoPickTests"
+               ReferencedContainer = "container:PhotoPick.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "52412A921CA6114A0073C4BE"
+            BuildableName = "PhotoPick.framework"
+            BlueprintName = "PhotoPick"
+            ReferencedContainer = "container:PhotoPick.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>

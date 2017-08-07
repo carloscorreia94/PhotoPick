@@ -16,6 +16,7 @@
 		1721B1F51F24D80700C082CB /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1721B1F11F24D80700C082CB /* ImageCollectionViewCell.swift */; };
 		1721B1F61F24D80700C082CB /* ImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1721B1F21F24D80700C082CB /* ImageCollectionViewCell.xib */; };
 		1721B2041F24E37C00C082CB /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1721B2031F24E37C00C082CB /* LoadingView.swift */; };
+		17522DE81F38D1DB0049F61F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDDC0B5C1D051245009135DB /* Assets.xcassets */; };
 		175321F31F24EC7C0039611D /* Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175321F21F24EC7C0039611D /* Extras.swift */; };
 		175321F71F24ED580039611D /* TitilliumWeb-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 175321F61F24ED580039611D /* TitilliumWeb-SemiBold.ttf */; };
 		52412A971CA6114A0073C4BE /* PhotoPick.h in Headers */ = {isa = PBXBuildFile; fileRef = 52412A961CA6114A0073C4BE /* PhotoPick.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -246,6 +247,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17522DE81F38D1DB0049F61F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,6 +491,7 @@
 				D0F1DE0C1F320B1800CBF749 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
