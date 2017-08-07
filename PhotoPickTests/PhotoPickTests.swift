@@ -8,6 +8,8 @@
 
 import XCTest
 
+@testable import PhotoPick
+
 class PhotoPickTests: XCTestCase {
     
     override func setUp() {
