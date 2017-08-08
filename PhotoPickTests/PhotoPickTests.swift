@@ -8,28 +8,17 @@
 
 import XCTest
 
-@testable import PhotoPick
+//@testable import PhotoPick
 //@testable import Photos
 
 
 
 class PhotoPickTests: XCTestCase {
     
-    var photoPickViewController : PhotoPickViewController!
     
     override func setUp() {
         super.setUp()
         
-        let bundle = Bundle(for: self.classForCoder)
-        
-        let libraryImage = UIImage(named: "ic_library_mode", in: bundle, compatibleWith: nil)!
-        
-        UIImageWriteToSavedPhotosAlbum(libraryImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
-
-    
-        photoPickViewController = PhotoPickViewController(nibName: "PhotoPickViewController", bundle: bundle)
-        photoPickViewController.viewDidLoad()
-        photoPickViewController.viewDidAppear(true)
     }
     
     override func tearDown() {
@@ -37,9 +26,7 @@ class PhotoPickTests: XCTestCase {
         super.tearDown()
     }
     
-    func testHasAsset() {
-       XCTAssertTrue(photoPickViewController.albumView.assets?.count ?? 0 == 1)
-    }
+   
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
@@ -49,13 +36,4 @@ class PhotoPickTests: XCTestCase {
     }
     
     
-    func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
-    
-        if let error = error {
-            print("error saving photo")
-           print(error.localizedDescription)
-        } else {
-            print("saved photo")
-        }
-    }
-}
+ }

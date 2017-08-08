@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 class ViewController: UIViewController, PhotoPickDelegate {
     
@@ -14,10 +15,14 @@ class ViewController: UIViewController, PhotoPickDelegate {
     
     @IBOutlet weak var showButton: UIButton!
     
+    let photoPick = PhotoPickViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        photoPick.delegate = self
+        photoPick.defaultMode     = .library
+
         showButton.layer.cornerRadius = 2.5
     }
     
@@ -34,11 +39,8 @@ class ViewController: UIViewController, PhotoPickDelegate {
     @IBAction func showButtonPressed(_ sender: AnyObject) {
         
         // Show PhotoPick
-        let photoPick = PhotoPickViewController()
         
-        photoPick.delegate = self
-        photoPick.defaultMode     = .library
-
+       
         self.present(photoPick, animated: true, completion: nil)
     }
     
@@ -103,4 +105,39 @@ class ViewController: UIViewController, PhotoPickDelegate {
     }
 
 }
+
+extension ViewController {
+    func addPhotoToCameraRoll(_ completion: (()->())? = nil) {
+        
+        let libraryImage = UIImage(named: "ic_library_mode", in: Bundle(for: self.classForCoder), compatibleWith: nil)!
+
+        
+        
+        PHPhotoLibrary.shared().performChanges({
+            let assetChangeRequest = PHAssetChangeRequest.creationRequestForAsset(from: libraryImage)
+            let assetPlaceholder = assetChangeRequest.placeholderForCreatedAsset
+            
+            let optionsSort = PHFetchOptions()
+            optionsSort.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+            
+            let userAlbums = PHAssetCollection.fetchAssetCollections(with: PHAssetCollectionType.album, subtype: PHAssetCollectionSubtype.any, options: PHFetchOptions())
+            
+            let first = userAlbums.firstObject ?? PHAssetCollection()
+            
+            let albumChangeRequest = PHAssetCollectionChangeRequest(for: first)
+            
+            let arrayPlaceHolder : NSArray = [assetPlaceholder!]
+            albumChangeRequest?.addAssets(arrayPlaceHolder)
+            
+            
+        }, completionHandler: { success, error in
+            if let comp = completion {
+                comp()
+            }
+        })
+    }
+    
+}
+
+
 

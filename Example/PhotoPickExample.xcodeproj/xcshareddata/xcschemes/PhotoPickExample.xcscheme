@@ -38,6 +38,26 @@
                ReferencedContainer = "container:PhotoPickExample.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D098A7711F39A547009D099F"
+               BuildableName = "PhotoPickExampleTests.xctest"
+               BlueprintName = "PhotoPickExampleTests"
+               ReferencedContainer = "container:PhotoPickExample.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D0F1DE021F320B1800CBF749"
+               BuildableName = "PhotoPickTests.xctest"
+               BlueprintName = "PhotoPickTests"
+               ReferencedContainer = "container:../PhotoPick.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
