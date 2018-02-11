@@ -45,7 +45,10 @@ public var photoPickShotImage: UIImage?
 
 
 public var photoPickCameraRollTitle = "Galeria"
-public var photoPickCameraTitle     = "Camera"
+public var photoPickCameraTitle     = "Câmera"
+public var errorMessageCamera = "No camera photo shot"
+public var errorMessageGallery = "You need gallery acccess permission. Turn it back on in the Settings"
+
 public var photoPickTitleFont       = UIFont(name: "TitilliumWeb-SemiBold", size: 15)
 
 
@@ -61,6 +64,7 @@ public var photoPickTitleFont       = UIFont(name: "TitilliumWeb-SemiBold", size
 
  
 
+    @IBOutlet weak var topSpaceConstraint: NSLayoutConstraint!
     fileprivate var mode: PickMode = .none
     public var defaultMode: PickMode = .library
     fileprivate var willFilter = true
@@ -80,6 +84,8 @@ public var photoPickTitleFont       = UIFont(name: "TitilliumWeb-SemiBold", size
     lazy var cameraView = PickCameraView.instance()
 
     fileprivate var hasGalleryPermission = PHPhotoLibrary.authorizationStatus() == .authorized
+    fileprivate var hasCameraPermission = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) == .authorized
+
     
     public weak var delegate: PhotoPickDelegate? = nil
     
@@ -90,6 +96,7 @@ public var photoPickTitleFont       = UIFont(name: "TitilliumWeb-SemiBold", size
             self.view = view
         }
     }
+    
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -160,6 +167,14 @@ public var photoPickTitleFont       = UIFont(name: "TitilliumWeb-SemiBold", size
     override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        let window = UIApplication.shared.keyWindow
+        if #available(iOS 11.0, *) {
+            let topPadding = window?.safeAreaInsets.top
+            topSpaceConstraint.constant = topPadding ?? 5
+            self.view.updateConstraints()
+        }
+        
+        
     }
 
     override public func viewDidAppear(_ animated: Bool) {
@@ -212,6 +227,8 @@ public var photoPickTitleFont       = UIFont(name: "TitilliumWeb-SemiBold", size
  
     @IBAction func doneButtonPressed(_ sender: UIButton) {
         
+        
+        
         photoPickDidFinishInSingleMode()
     }
     
@@ -222,7 +239,7 @@ public var photoPickTitleFont       = UIFont(name: "TitilliumWeb-SemiBold", size
                 delegate?.pickImageSelected(image, source: .camera)
                 self.dismiss(animated: true)
             } else {
-                let ac = UIAlertController(title: "PhotoPick", message: "No camera photo shot.", preferredStyle: .alert)
+                let ac = UIAlertController(title: "PhotoPick", message: errorMessageCamera, preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(ac, animated: true, completion: nil)
             }
@@ -230,6 +247,12 @@ public var photoPickTitleFont       = UIFont(name: "TitilliumWeb-SemiBold", size
             return
         }
         
+        if !hasGalleryPermission {
+            let ac = UIAlertController(title: "PhotoPick", message: errorMessageGallery, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(ac, animated: true, completion: nil)
+            return
+        }
         
         if let _ = albumView.imageView.image, let image = albumView.cropImage() {
             self.delegate?.pickImageSelected(image, source: .library)
@@ -328,14 +351,14 @@ private extension PhotoPickViewController {
             break
         }
         
-        doneButton.isHidden = !hasGalleryPermission
+        doneButton.isHidden = !hasGalleryPermission && !hasCameraPermission
         self.view.bringSubview(toFront: menuView)
     }
     
     func updateDoneButtonVisibility() {
 
         // don't show the done button without gallery permission
-        if !hasGalleryPermission {
+        if !hasGalleryPermission  && !hasCameraPermission {
             
             self.doneButton.isHidden = true
             return

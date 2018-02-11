@@ -221,7 +221,10 @@ class PickLibraryView : UIView, PHPhotoLibraryChangeObserver, UICollectionViewDa
         cell.isSelected = true
         
         let photo = assets![(indexPath as NSIndexPath).row] as! PHAsset
-        showImage(photo)
+        let isReady = PHPhotoLibrary.authorizationStatus() == .authorized
+        if isReady {
+            showImage(photo)
+        }
     }
     
     /**
