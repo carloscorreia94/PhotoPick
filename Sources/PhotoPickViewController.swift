@@ -101,6 +101,8 @@ public var photoPickTitleFont       = UIFont(name: "TitilliumWeb-SemiBold", size
     override public func viewDidLoad() {
         super.viewDidLoad()
     
+        self.titleLabel.text = NSLocalizedString(photoPickCameraRollTitle, comment: photoPickCameraRollTitle)
+
         self.view.backgroundColor = photoPickBackgroundColor
         
         cameraView.delegate = self
@@ -268,6 +270,10 @@ public var photoPickTitleFont       = UIFont(name: "TitilliumWeb-SemiBold", size
 
 extension PhotoPickViewController: PickLibraryViewDelegate, PickCameraViewDelegate {
     
+    func authorized(on: Bool) {
+        hasCameraPermission = on
+        self.updateDoneButtonVisibility()
+    }
     
     // MARK: PickCameraViewDelegate
     func cameraShotFinished(_ image: UIImage) {

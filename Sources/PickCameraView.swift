@@ -12,6 +12,7 @@ import Photos
 
 @objc protocol PickCameraViewDelegate: class {
     func cameraShotFinished(_ image: UIImage)
+    func authorized(on: Bool)
 }
 
 class PickCameraView : UIView, UIGestureRecognizerDelegate {
@@ -133,11 +134,13 @@ class PickCameraView : UIView, UIGestureRecognizerDelegate {
         let status = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
         
         if status == AVAuthorizationStatus.authorized {
-            
+            delegate?.authorized(on: true)
+
             session?.startRunning()
             
         } else if status == AVAuthorizationStatus.denied || status == AVAuthorizationStatus.restricted {
-            
+            delegate?.authorized(on: false)
+
             session?.stopRunning()
         }
     }
@@ -462,9 +465,11 @@ extension PickCameraView {
         
         if status == AVAuthorizationStatus.authorized {
             
+            delegate?.authorized(on: true)
             return true
         }
         
+        delegate?.authorized(on: false)
         return false
     }
 }

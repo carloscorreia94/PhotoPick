@@ -51,7 +51,7 @@ class PickLibraryView : UIView, PHPhotoLibraryChangeObserver, UICollectionViewDa
     
     func initialize() {
         loadingView = LoadingView(delegate!.getViewController(), origin: CGPoint(x: 0, y: self.center.y))
-        
+        loadingView.hide()
         self.backgroundColor = UIColor.darkGray
         
         // Init Images Collection View
