@@ -15,7 +15,7 @@ class LoadingView: UIVisualEffectView {
             label.text = text
         }
     }
-    let activityIndictor: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
+    let activityIndictor: UIActivityIndicatorView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white)
     let label: UILabel = UILabel()
     let blurEffect = UIBlurEffect(style: .light)
     let vibrancyView: UIVisualEffectView
@@ -84,7 +84,7 @@ class LoadingView: UIVisualEffectView {
     
     func show() {
         self.isHidden = false
-        self.superview!.bringSubview(toFront: self)
+        self.superview!.bringSubviewToFront(self)
 
         
         if let vc = vController {

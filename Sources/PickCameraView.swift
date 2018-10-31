@@ -61,7 +61,7 @@ class PickCameraView : UIView, UIGestureRecognizerDelegate {
         
         for device in AVCaptureDevice.devices() {
             
-            if let device = device as? AVCaptureDevice , device.position == AVCaptureDevicePosition.back {
+            if let device = device as? AVCaptureDevice , device.position == AVCaptureDevice.Position.back {
                 
                 self.device = device
                 
@@ -74,28 +74,32 @@ class PickCameraView : UIView, UIGestureRecognizerDelegate {
         
         do {
             
-            if let session = session {
+            if let session = session, let device = device {
                 
                 videoInput = try AVCaptureDeviceInput(device: device)
                 
-                session.addInput(videoInput)
+                if let input = videoInput {
+                    session.addInput(input)
+                }
                 
                 imageOutput = AVCaptureStillImageOutput()
                 
-                session.addOutput(imageOutput)
+                if let output = imageOutput {
+                    session.addOutput(output)
+                }
                 
                 let videoLayer = AVCaptureVideoPreviewLayer(session: session)
                 
                 
                 
-                videoLayer?.frame = self.cameraView.bounds
-                videoLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
+                videoLayer.frame = self.cameraView.bounds
+                videoLayer.videoGravity = AVLayerVideoGravity(rawValue: convertFromAVLayerVideoGravity(AVLayerVideoGravity.resizeAspectFill))
                 
 
-                self.cameraView.layer.addSublayer(videoLayer!)
+                self.cameraView.layer.addSublayer(videoLayer)
         
                 
-                session.sessionPreset = AVCaptureSessionPresetPhoto
+                session.sessionPreset = AVCaptureSession.Preset(rawValue: convertFromAVCaptureSessionPreset(AVCaptureSession.Preset.photo))
                 
                 session.startRunning()
                 
@@ -114,11 +118,11 @@ class PickCameraView : UIView, UIGestureRecognizerDelegate {
         
         self.startCamera()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(PickCameraView.willEnterForegroundNotification(_:)), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(PickCameraView.willEnterForegroundNotification(_:)), name: UIApplication.willEnterForegroundNotification, object: nil)
 
     }
     
-    func willEnterForegroundNotification(_ notification: Notification) {
+    @objc func willEnterForegroundNotification(_ notification: Notification) {
         
         startCamera()
     }
@@ -131,7 +135,7 @@ class PickCameraView : UIView, UIGestureRecognizerDelegate {
     
     func startCamera() {
         
-        let status = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+        let status = AVCaptureDevice.authorizationStatus(for: AVMediaType(rawValue: convertFromAVMediaType(AVMediaType.video)))
         
         if status == AVAuthorizationStatus.authorized {
             delegate?.authorized(on: true)
@@ -152,7 +156,7 @@ class PickCameraView : UIView, UIGestureRecognizerDelegate {
     private func configureButton(_ btn: UIButton,image img: UIImage) {
         let image = img.withRenderingMode(.alwaysTemplate)
 
-        btn.setImage(image, for: UIControlState())
+        btn.setImage(image, for: UIControl.State())
         btn.setImage(image, for: .highlighted)
         btn.setImage(image, for: .selected)
         btn.tintColor = photoPickBaseTintColor
@@ -210,15 +214,15 @@ class PickCameraView : UIView, UIGestureRecognizerDelegate {
                 
                 let mode = device.flashMode
                 
-                if mode == AVCaptureFlashMode.off {
+                if mode == AVCaptureDevice.FlashMode.off {
                     
-                    device.flashMode = AVCaptureFlashMode.on
-                    flashModeButton.setImage(flashOnImage, for: UIControlState())
+                    device.flashMode = AVCaptureDevice.FlashMode.on
+                    flashModeButton.setImage(flashOnImage, for: UIControl.State())
                     
-                } else if mode == AVCaptureFlashMode.on {
+                } else if mode == AVCaptureDevice.FlashMode.on {
                     
-                    device.flashMode = AVCaptureFlashMode.off
-                    flashModeButton.setImage(flashOffImage, for: UIControlState())
+                    device.flashMode = AVCaptureDevice.FlashMode.off
+                    flashModeButton.setImage(flashOffImage, for: UIControl.State())
                 }
                 
                 device.unlockForConfiguration()
@@ -227,7 +231,7 @@ class PickCameraView : UIView, UIGestureRecognizerDelegate {
             
         } catch _ {
             
-            flashModeButton.setImage(flashOffImage, for: UIControlState())
+            flashModeButton.setImage(flashOffImage, for: UIControl.State())
             return
         }
         
@@ -260,20 +264,22 @@ class PickCameraView : UIView, UIGestureRecognizerDelegate {
                 
                 for input in session.inputs {
                     
-                    session.removeInput(input as! AVCaptureInput)
+                    session.removeInput(input )
                 }
                 
-                let position = (videoInput?.device.position == AVCaptureDevicePosition.front) ? AVCaptureDevicePosition.back : AVCaptureDevicePosition.front
+                let position = (videoInput?.device.position == AVCaptureDevice.Position.front) ? AVCaptureDevice.Position.back : AVCaptureDevice.Position.front
                 
                 
-                changeCameraButton.backgroundColor = videoInput?.device.position == AVCaptureDevicePosition.front ? photoPickBackgroundColor : photoPickTintColor
+                changeCameraButton.backgroundColor = videoInput?.device.position == AVCaptureDevice.Position.front ? photoPickBackgroundColor : photoPickTintColor
                 
-                for device in AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) {
+                for device in AVCaptureDevice.devices(for: AVMediaType(rawValue: convertFromAVMediaType(AVMediaType.video))) {
                     
                     if let device = device as? AVCaptureDevice , device.position == position {
                         
                         videoInput = try AVCaptureDeviceInput(device: device)
-                        session.addInput(videoInput)
+                        if let input = videoInput {
+                            session.addInput(input)
+                        }
                         
                     }
                 }
@@ -313,7 +319,7 @@ class PickCameraView : UIView, UIGestureRecognizerDelegate {
         
         DispatchQueue.global(qos: .default).async(execute: { () -> Void in
             
-            let videoConnection = imageOutput.connection(withMediaType: AVMediaTypeVideo)
+            let videoConnection = imageOutput.connection(with: AVMediaType(rawValue: convertFromAVMediaType(AVMediaType.video)))
             
             let orientation: UIDeviceOrientation = UIDevice.current.orientation
             switch (orientation) {
@@ -329,9 +335,16 @@ class PickCameraView : UIView, UIGestureRecognizerDelegate {
                 videoConnection?.videoOrientation = .portrait
             }
             
-            imageOutput.captureStillImageAsynchronously(from: videoConnection, completionHandler: { (buffer, error) -> Void in
+            guard let vConnection = videoConnection else {
+                return
+            }
+            imageOutput.captureStillImageAsynchronously(from: vConnection, completionHandler: { (buffer, error) -> Void in
                 
                 self.session?.stopRunning()
+                
+                guard let buffer = buffer else {
+                    return
+                }
                 
                 let data = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer)
                 if let image = UIImage(data: data!) {
@@ -366,7 +379,7 @@ class PickCameraView : UIView, UIGestureRecognizerDelegate {
                         var resizedImage = UIImage(cgImage: imageRef!, scale: sw/iw, orientation: image.imageOrientation)
                         
                         //Temporary. Change orientation here, as front camera input changes it (not sure why)
-                        if self.videoInput?.device.position == AVCaptureDevicePosition.front {
+                        if self.videoInput?.device.position == AVCaptureDevice.Position.front {
                             resizedImage = UIImage(cgImage: resizedImage.cgImage!, scale: 1.0, orientation: .leftMirrored)
                         }
                         self._isReadyToSend = true
@@ -393,7 +406,7 @@ extension PickCameraView {
         let viewsize = self.cameraView.bounds.size
         let newPoint = CGPoint(x: point.y/viewsize.height, y: 1.0-point.x/viewsize.width)
         
-        let device = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+        let device = AVCaptureDevice.default(for: AVMediaType(rawValue: convertFromAVMediaType(AVMediaType.video)))
         
         do {
             
@@ -404,15 +417,15 @@ extension PickCameraView {
             return
         }
         
-        if device?.isFocusModeSupported(AVCaptureFocusMode.autoFocus) == true {
+        if device?.isFocusModeSupported(AVCaptureDevice.FocusMode.autoFocus) == true {
             
-            device?.focusMode = AVCaptureFocusMode.autoFocus
+            device?.focusMode = AVCaptureDevice.FocusMode.autoFocus
             device?.focusPointOfInterest = newPoint
         }
         
-        if device?.isExposureModeSupported(AVCaptureExposureMode.continuousAutoExposure) == true {
+        if device?.isExposureModeSupported(AVCaptureDevice.ExposureMode.continuousAutoExposure) == true {
             
-            device?.exposureMode = AVCaptureExposureMode.continuousAutoExposure
+            device?.exposureMode = AVCaptureDevice.ExposureMode.continuousAutoExposure
             device?.exposurePointOfInterest = newPoint
         }
         
@@ -427,7 +440,7 @@ extension PickCameraView {
         self.addSubview(self.focusView!)
         
         UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.8,
-                       initialSpringVelocity: 3.0, options: UIViewAnimationOptions.curveEaseIn, // UIViewAnimationOptions.BeginFromCurrentState
+                       initialSpringVelocity: 3.0, options: UIView.AnimationOptions.curveEaseIn, // UIViewAnimationOptions.BeginFromCurrentState
             animations: {
                 self.focusView!.alpha = 1.0
                 self.focusView!.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
@@ -447,7 +460,7 @@ extension PickCameraView {
                 
                 try device.lockForConfiguration()
                 
-                device.flashMode = AVCaptureFlashMode.off
+                device.flashMode = AVCaptureDevice.FlashMode.off
                 
                 device.unlockForConfiguration()
                 
@@ -461,7 +474,7 @@ extension PickCameraView {
     
     func cameraIsAvailable() -> Bool {
         
-        let status = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+        let status = AVCaptureDevice.authorizationStatus(for: AVMediaType(rawValue: convertFromAVMediaType(AVMediaType.video)))
         
         if status == AVAuthorizationStatus.authorized {
             
@@ -472,4 +485,19 @@ extension PickCameraView {
         delegate?.authorized(on: false)
         return false
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVLayerVideoGravity(_ input: AVLayerVideoGravity) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVCaptureSessionPreset(_ input: AVCaptureSession.Preset) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVMediaType(_ input: AVMediaType) -> String {
+	return input.rawValue
 }

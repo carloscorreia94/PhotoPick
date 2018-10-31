@@ -182,7 +182,7 @@ class PickLibraryView : UIView, PHPhotoLibraryChangeObserver, UICollectionViewDa
             let isReady = PHPhotoLibrary.authorizationStatus() == .authorized
 
             if isReady && assets!.count > 0 && imageView == nil {
-                let photo = assets![(zeroIndexPath as NSIndexPath).row] as! PHAsset
+                let photo = assets![(zeroIndexPath as NSIndexPath).row] 
                 showImage(photo)
                 
                 cell.isSelected = true
@@ -194,7 +194,7 @@ class PickLibraryView : UIView, PHPhotoLibraryChangeObserver, UICollectionViewDa
         
         let cellWidth = collectionViewLayout.cellWidth
         
-        let asset = assets![(indexPath as NSIndexPath).row] as! PHAsset
+        let asset = assets![(indexPath as NSIndexPath).row] 
         imageManager.requestImage(for: asset,
                                   targetSize: CGSize(width: cellWidth, height: cellWidth),
                                   contentMode: .aspectFill,
@@ -220,7 +220,7 @@ class PickLibraryView : UIView, PHPhotoLibraryChangeObserver, UICollectionViewDa
         
         cell.isSelected = true
         
-        let photo = assets![(indexPath as NSIndexPath).row] as! PHAsset
+        let photo = assets![(indexPath as NSIndexPath).row] 
         let isReady = PHPhotoLibrary.authorizationStatus() == .authorized
         if isReady {
             showImage(photo)
@@ -315,7 +315,7 @@ class PickLibraryView : UIView, PHPhotoLibraryChangeObserver, UICollectionViewDa
      
      - parameter recognizer: UITapGestureRecognizer
      */
-    func scrollViewDoubleTapped(_ recognizer: UITapGestureRecognizer) {
+    @objc func scrollViewDoubleTapped(_ recognizer: UITapGestureRecognizer) {
         
         let pointInView = recognizer.location(in: imageView)
         

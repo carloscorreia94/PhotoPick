@@ -84,7 +84,7 @@ public var photoPickTitleFont       = UIFont(name: "TitilliumWeb-SemiBold", size
     lazy var cameraView = PickCameraView.instance()
 
     fileprivate var hasGalleryPermission = PHPhotoLibrary.authorizationStatus() == .authorized
-    fileprivate var hasCameraPermission = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) == .authorized
+    fileprivate var hasCameraPermission = AVCaptureDevice.authorizationStatus(for: AVMediaType(rawValue: convertFromAVMediaType(AVMediaType.video))) == .authorized
 
     
     public weak var delegate: PhotoPickDelegate? = nil
@@ -128,24 +128,24 @@ public var photoPickTitleFont       = UIFont(name: "TitilliumWeb-SemiBold", size
         closeImage  = closeImage?.withRenderingMode(.alwaysTemplate)
         checkImage  = checkImage?.withRenderingMode(.alwaysTemplate)
 
-        libraryButton.setImage(albumImage, for: UIControlState())
+        libraryButton.setImage(albumImage, for: UIControl.State())
         libraryButton.setImage(albumImage, for: .highlighted)
         libraryButton.setImage(albumImage, for: .selected)
         libraryButton.tintColor = photoPickTintColor
         libraryButton.adjustsImageWhenHighlighted = false
 
-        cameraButton.setImage(cameraImage, for: UIControlState())
+        cameraButton.setImage(cameraImage, for: UIControl.State())
         cameraButton.setImage(cameraImage, for: .highlighted)
         cameraButton.setImage(cameraImage, for: .selected)
         cameraButton.tintColor = photoPickTintColor
         cameraButton.adjustsImageWhenHighlighted = false
             
-        closeButton.setImage(closeImage, for: UIControlState())
+        closeButton.setImage(closeImage, for: UIControl.State())
         closeButton.setImage(closeImage, for: .highlighted)
         closeButton.setImage(closeImage, for: .selected)
         closeButton.tintColor = photoPickBaseTintColor
             
-        doneButton.setImage(checkImage, for: UIControlState())
+        doneButton.setImage(checkImage, for: UIControl.State())
         doneButton.setImage(checkImage, for: .highlighted)
         doneButton.setImage(checkImage, for: .selected)
         doneButton.tintColor = photoPickBaseTintColor
@@ -339,14 +339,14 @@ private extension PhotoPickViewController {
             
             titleLabel.text = NSLocalizedString(photoPickCameraRollTitle, comment: photoPickCameraRollTitle)
             highlightButton(libraryButton)
-            self.view.bringSubview(toFront: photoLibraryViewerContainer)
+            self.view.bringSubviewToFront(photoLibraryViewerContainer)
             albumView.isHidden = false
         
         case .camera:
 
             titleLabel.text = NSLocalizedString(photoPickCameraTitle, comment: photoPickCameraTitle)
             highlightButton(cameraButton)
-            self.view.bringSubview(toFront: cameraShotContainer)
+            self.view.bringSubviewToFront(cameraShotContainer)
             cameraView.isHidden = false
             cameraView.startCamera()
             
@@ -358,7 +358,7 @@ private extension PhotoPickViewController {
         }
         
         doneButton.isHidden = !hasGalleryPermission && !hasCameraPermission
-        self.view.bringSubview(toFront: menuView)
+        self.view.bringSubviewToFront(menuView)
     }
     
     func updateDoneButtonVisibility() {
@@ -420,4 +420,9 @@ private extension PhotoPickViewController {
         button.tintColor = photoPickTintColor
         button.bottomBorder(photoPickTintColor, width: 3)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVMediaType(_ input: AVMediaType) -> String {
+	return input.rawValue
 }
