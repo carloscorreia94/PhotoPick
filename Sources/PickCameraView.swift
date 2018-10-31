@@ -118,7 +118,7 @@ class PickCameraView : UIView, UIGestureRecognizerDelegate {
         
         self.startCamera()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(PickCameraView.willEnterForegroundNotification(_:)), name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(PickCameraView.willEnterForegroundNotification(_:)), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
 
     }
     

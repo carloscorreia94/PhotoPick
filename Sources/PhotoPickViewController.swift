@@ -339,14 +339,14 @@ private extension PhotoPickViewController {
             
             titleLabel.text = NSLocalizedString(photoPickCameraRollTitle, comment: photoPickCameraRollTitle)
             highlightButton(libraryButton)
-            self.view.bringSubviewToFront(photoLibraryViewerContainer)
+            self.view.bringSubview(toFront: photoLibraryViewerContainer)
             albumView.isHidden = false
         
         case .camera:
 
             titleLabel.text = NSLocalizedString(photoPickCameraTitle, comment: photoPickCameraTitle)
             highlightButton(cameraButton)
-            self.view.bringSubviewToFront(cameraShotContainer)
+            self.view.bringSubview(toFront: cameraShotContainer)
             cameraView.isHidden = false
             cameraView.startCamera()
             
@@ -358,7 +358,7 @@ private extension PhotoPickViewController {
         }
         
         doneButton.isHidden = !hasGalleryPermission && !hasCameraPermission
-        self.view.bringSubviewToFront(menuView)
+        self.view.bringSubview(toFront: menuView)
     }
     
     func updateDoneButtonVisibility() {
