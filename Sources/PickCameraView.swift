@@ -39,7 +39,7 @@ class PickCameraView : UIView, UIGestureRecognizerDelegate {
     var currentImage: UIImage?
     
 
-    weak var delegate: PickCameraViewDelegate? = nil
+    var delegate: PickCameraViewDelegate? = nil
     
     static func instance() -> PickCameraView {
         
